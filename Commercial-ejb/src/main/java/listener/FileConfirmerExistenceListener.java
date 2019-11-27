@@ -16,6 +16,7 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import sender.FileVerifierExistenceSender;
 
 /**
  *
@@ -36,6 +37,7 @@ public class FileConfirmerExistenceListener implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
+        Logger.getLogger(FileConfirmerExistenceListener.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileConfirmerExistenceListener - onMessage()");
         if (message instanceof ObjectMessage) {
             try {
                 Object pqObj = ((ObjectMessage) message).getObject();

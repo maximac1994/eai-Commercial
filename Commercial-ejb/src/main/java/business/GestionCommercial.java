@@ -36,7 +36,7 @@ public class GestionCommercial implements GestionCommercialLocal {
 
     @Override
     public void creerDemandeFormation(DemandeFormation demandeF) {
-        System.out.println(demandeF.toString());
+        Logger.getLogger(GestionCommercial.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] GestionCommercial - creerDemandeFormation() " + demandeF.toString());
         // Vérifier existance formation
         try {
             DemandeFormationMessage demandeFormationMessage = this.creerDemandeFormationMessage(demandeF);
@@ -61,18 +61,18 @@ public class GestionCommercial implements GestionCommercialLocal {
 
     @Override
     public void traiterDemandeFormation(ReponseExistenceFormation reponseExistence) {
-        System.out.println("on est bon");
-        System.out.println("ReponseExistence : " + reponseExistence.getDemandeFormationMessage().toString() + ", existe : " + reponseExistence.isFormationExists());
-        /*
-        if (formationExists) {
-            System.out.println("Formation : " + formationExists);
-            DemandeFormationMessage demandeFormation = new DemandeFormationMessage();
-            
-            this.fileFormation.publish();
+        Logger.getLogger(FileVerifierExistenceSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] GestionCommercial - traiterDemandeFormation() : " + reponseExistence.toString());
+        if (reponseExistence.isFormationExists()) {
+            try {
+                this.fileFormation.publish(reponseExistence.getDemandeFormationMessage());
+            } catch (JMSException ex) {
+                Logger.getLogger(GestionCommercial.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GestionCommercial.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
-            System.out.println("Formation : " + formationExists);
+            System.out.println("!!! LA FORMATION N'EXISTE PAS !!!");
         }
-         */
     }
 
     @Override

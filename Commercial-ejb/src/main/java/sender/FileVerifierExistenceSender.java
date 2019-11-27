@@ -7,6 +7,7 @@ package sender;
 
 import MessagesTypes.CodeFormationMessage;
 import MessagesTypes.DemandeFormationMessage;
+import business.GestionCommercial;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.jms.Connection;
@@ -63,6 +64,7 @@ public class FileVerifierExistenceSender {
     }
 
     public void publish(DemandeFormationMessage demandeFormation) throws JMSException, InterruptedException {
+        Logger.getLogger(FileVerifierExistenceSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileVerifierExistenceSender - publish() : " + demandeFormation.toString());
         if (context == null) {
             this.createContext();
         }

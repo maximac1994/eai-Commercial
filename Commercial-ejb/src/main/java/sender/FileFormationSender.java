@@ -6,6 +6,9 @@
 package sender;
 
 import MessagesTypes.DemandeFormationMessage;
+import business.GestionCommercial;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
@@ -59,6 +62,7 @@ public class FileFormationSender {
     }
 
     public void publish(DemandeFormationMessage demandeFormation) throws JMSException, InterruptedException {
+        Logger.getLogger(FileFormationSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileFormationSender - publish() : demandeFormationMessage");
         if (context == null) {
             this.createContext();
         }
