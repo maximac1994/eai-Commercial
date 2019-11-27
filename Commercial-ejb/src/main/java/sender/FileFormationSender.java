@@ -62,7 +62,7 @@ public class FileFormationSender {
     }
 
     public void publish(DemandeFormationMessage demandeFormation) throws JMSException, InterruptedException {
-        Logger.getLogger(FileFormationSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileFormationSender - publish() : demandeFormationMessage");
+        Logger.getLogger(FileFormationSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileFormationSender - publish() : " + demandeFormation.toString());
         if (context == null) {
             this.createContext();
         }
