@@ -51,7 +51,8 @@ public class TopicFormationListener implements MessageListener {
     public void onMessage(Message message) {
         try {
             if (message instanceof ObjectMessage) {
-                Object pqObj = ((ObjectMessage) message).getObject();
+                ObjectMessage objet = (ObjectMessage) message;
+                Object pqObj = objet.getObject();
                 if (pqObj instanceof EvenementFormation) {
                     if ("annulation".equals(message.getJMSType())) {
                         EvenementFormationAnnulation evenementFormation = (EvenementFormationAnnulation) pqObj;
