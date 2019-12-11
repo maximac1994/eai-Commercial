@@ -1,10 +1,171 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
 <html>
+
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <style>
+            body{
+               font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                background-color: #EEEEEE;
+            }
+            .container-full{
+                width: 700px;
+                margin-left : auto;
+                margin-right:auto;
+            }
+            .container{
+                background-color: #FFFFFF;
+                padding: 15px;
+                margin-bottom:10px;
+                box-shadow: 0px 0px 9px -2px rgba(0,0,0,0.75);
+            }
+            .libel{
+                font-weight: bold;
+                display: inline;
+                font-size: 22px;
+                text-transform: uppercase;
+            }
+            .info{
+                display: inline;
+            }
+            .item{
+                width: 120px;
+            }
+            .line{
+                display: flex;
+                padding-bottom: 5px;
+                padding-top: 5px;
+                border-bottom: 2px solid #5974FF;
+            }
+            .line-title{
+                display: flex;
+                margin-bottom : 15px;
+                background-color: #CEE8FE;
+            }
+            h2{
+                text-align: center;
+                margin-top : 5px!important;
+                text-transform: uppercase;
+                
+            }
+            button{
+                background-color: #5974FF;
+                color : white;
+                border : none;
+                height : 25px;
+                border-radius: 9px 9px 9px 9px;
+                cursor: pointer;
+            }
+            .valider{
+                margin-top : 10px;
+            }
+            .successMsg{
+                background-color: #5974FF;
+                padding: 15px;
+                margin-bottom:10px;
+                box-shadow: 0px 0px 9px -2px rgba(0,0,0,0.75);
+            }
+            
+        </style>
+        <script>
+            
+            $( document ).ready(function() {
+                if(window.localStorage.getItem("msg")){
+                    $(".successMsgCont").html("<div class='successMsg'>"+window.localStorage.getItem("msg")+"</div>");
+              if(window.localStorage.getItem("status") == 200){
+                  $('.successMsg').css('background-color', '#A5EBA3');
+              }else{
+                  $('.successMsg').css('background-color', '#FFA68C');
+              }
+            
+            window.localStorage.removeItem("msg");
+               window.localStorage.removeItem("status");
+                }
+                }
+               
+            );
+
+            function send() {
+                var codeClient = $('#code').val();
+                var nomEntreprise = $('#nomEts').val();
+                var codeCatalogue =  $('#codeCat').val();
+                var intitule =  $('#intitule').val();
+                var nb =  $('#nb').val();
+
+                var res = {codeClient: "", nomEntreprise: "", codeCatalogue: "", intituleFormation : "", nbParticipants:0};
+                res.codeClient = codeClient;
+                res.nomEntreprise = nomEntreprise;
+                res.codeCatalogue = codeCatalogue;
+                res.intituleFormation = intitule;
+                res.nbParticipants = nb;
+                
+
+                postJson("http://localhost:8080/Commercial-web/webresources/demandeFormation", res, 
+                function( data ) {
+                window.localStorage.setItem("msg",data.responseText);
+                window.localStorage.setItem("status",data.status);
+                location.reload();
+});
+                
+            }
+            
+
+           
+            function postJson(url, data, callback) {
+                return jQuery.ajax({
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    type: 'POST',
+                    url: url,
+                    data: JSON.stringify(data),
+                    complete : callback,
+                    dataType: 'json'
+                });
+            }
+            ;
+
+            function deleteForm(url,callback) {
+                return jQuery.ajax({
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    type: 'DELETE',
+                    url: url,
+                    complete : callback
+                });
+            }
+            ;
+        </script>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class = "container-full">
+            
+            <div class="successMsgCont"></div>
+            <div class = "container">
+            <h2>Demande de formation</h2>
+                <div class="libel">Code Client : </div><input type='text' id = "code"/>
+                <br>
+                <div class="libel">nom Entreprise : </div><input type='text' id = "nomEts"/>
+                <br>
+                <div class="libel">Code catalogue : </div><input type='text' id = "codeCat"/>
+                <br>
+                <div class="libel">intitulé formation : </div><input type='text' id = "intitule"/>
+                <br>
+                <div class="libel">nombre de participants : </div><input type='number' id = "nb"/>
+                <br>
+                <button class="valider" onClick="send()">VALIDER</button>
+            </div>
+        </div>
     </body>
+
 </html>
