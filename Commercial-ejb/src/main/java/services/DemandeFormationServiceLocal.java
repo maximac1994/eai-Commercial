@@ -9,12 +9,16 @@ import javax.ejb.Local;
 import resources.DemandeFormation;
 
 /**
- *
+ * exposition des traitements du service COMMERCIAL en REST
  * @author 33785
  */
 @Local
 public interface DemandeFormationServiceLocal {
     
+    /**
+     * creation d'une demande de formation
+     * @param demandeF
+     */
     public void creerDemandeFormation(DemandeFormation demandeF);
     
 }

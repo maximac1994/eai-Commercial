@@ -21,7 +21,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- *
+ * Sender vers File de l'appli formation pour traitement de demande
  * @author 33785
  */
 public class FileFormationSender {
@@ -35,6 +35,9 @@ public class FileFormationSender {
     Session session = null;
     MessageProducer sender = null;
 
+    /**
+     * creation du contexte
+     */
     public void createContext() {
         try {
             // create the JNDI initial context.
@@ -50,6 +53,10 @@ public class FileFormationSender {
         }
     }
 
+    /**
+     * connection JMS
+     * @throws JMSException
+     */
     public void connect() throws JMSException {
         // create the connection
         connection = factory.createConnection();
@@ -61,6 +68,12 @@ public class FileFormationSender {
         connection.start();
     }
 
+    /**
+     * envoi un message sur la FILE FORMATION pour traiter une demande
+     * @param demandeFormation
+     * @throws JMSException
+     * @throws InterruptedException
+     */
     public void publish(DemandeFormationMessage demandeFormation) throws JMSException, InterruptedException {
         Logger.getLogger(FileFormationSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileFormationSender - publish() : " + demandeFormation.toString());
         if (context == null) {
@@ -73,6 +86,9 @@ public class FileFormationSender {
         this.close();
     }
 
+    /**
+     * fermeture de la connection
+     */
     public void close() {
         // close the context
         if (context != null) {

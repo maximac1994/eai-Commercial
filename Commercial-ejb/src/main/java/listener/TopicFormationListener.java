@@ -20,7 +20,7 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
 /**
- *
+ * topic pour gestion validation ou annulation de formation
  * @author 33785
  */
 @MessageDriven(activationConfig = {
@@ -39,13 +39,15 @@ public class TopicFormationListener implements MessageListener {
     @EJB
     GestionCommercialLocal gcl;
 
+    /**
+     *
+     */
     public TopicFormationListener() {
     }
 
     /**
-     *
+     * à chaque reception de message verification de l'entete JMS pour savoir si annulation ou validation
      * @param message
-     * @throws JMSException
      */
     @Override
     public void onMessage(Message message) {

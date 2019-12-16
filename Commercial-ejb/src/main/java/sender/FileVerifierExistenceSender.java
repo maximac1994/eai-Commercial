@@ -22,7 +22,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- *
+ * Sender vers fille existance pour verifier qu'une formation existe
  * @author 33785
  */
 public class FileVerifierExistenceSender {
@@ -37,6 +37,9 @@ public class FileVerifierExistenceSender {
     Session session = null;
     MessageProducer sender = null;
 
+    /**
+     * creation contexte
+     */
     public void createContext() {
         try {
             // create the JNDI initial context.
@@ -52,6 +55,10 @@ public class FileVerifierExistenceSender {
         }
     }
 
+    /**
+     * connection JMS
+     * @throws JMSException
+     */
     public void connect() throws JMSException {
         // create the connection
         connection = factory.createConnection();
@@ -63,6 +70,12 @@ public class FileVerifierExistenceSender {
         connection.start();
     }
 
+    /**
+     * envoyer une demande de formation à l'appli formation
+     * @param demandeFormation
+     * @throws JMSException
+     * @throws InterruptedException
+     */
     public void publish(DemandeFormationMessage demandeFormation) throws JMSException, InterruptedException {
         Logger.getLogger(FileVerifierExistenceSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileVerifierExistenceSender - publish() : " + demandeFormation.toString());
         if (context == null) {
@@ -76,6 +89,9 @@ public class FileVerifierExistenceSender {
         this.close();
     }
 
+    /**
+     * fermeture de la connection
+     */
     public void close() {
         // close the context
         if (context != null) {

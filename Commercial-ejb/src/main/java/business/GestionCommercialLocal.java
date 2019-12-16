@@ -20,12 +20,28 @@ import resources.DemandeFormation;
 @Local
 public interface GestionCommercialLocal {
     
+    /**
+     * crée une demande formation
+     * @param demandeF
+     */
     public void creerDemandeFormation(DemandeFormation demandeF);
     
+    /**
+     * traite une demande de formation apres reception d'une confirmation d'existance
+     * @param reponseExistence
+     */
     public void traiterDemandeFormation(ReponseExistenceFormation reponseExistence);
     
+    /**
+     * genere une reponse positive apres validation
+     * @param evenement
+     */
     public void genererReponsePositive(EvenementFormationValidation evenement);
     
+    /**
+     * génere une réponse positive apres annulation
+     * @param evenement
+     */
     public void genererReponseNegative(EvenementFormationAnnulation evenement);
     
 }

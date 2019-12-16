@@ -29,11 +29,18 @@ public class GestionCommercial implements GestionCommercialLocal {
     FileVerifierExistenceSender fileVerifExistence;
     FileFormationSender fileFormation;
 
+    /**
+     * 
+     */
     public GestionCommercial() {
         this.fileVerifExistence = new FileVerifierExistenceSender();
         this.fileFormation = new FileFormationSender();
     }
 
+    /**
+     *
+     * @param demandeF
+     */
     @Override
     public void creerDemandeFormation(DemandeFormation demandeF) {
         Logger.getLogger(GestionCommercial.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] GestionCommercial - creerDemandeFormation() " + demandeF.toString());
@@ -59,6 +66,10 @@ public class GestionCommercial implements GestionCommercialLocal {
         return demandeFormationMessage;
     }
 
+    /**
+     *
+     * @param reponseExistence
+     */
     @Override
     public void traiterDemandeFormation(ReponseExistenceFormation reponseExistence) {
         Logger.getLogger(FileVerifierExistenceSender.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] GestionCommercial - traiterDemandeFormation() : " + reponseExistence.toString());
@@ -75,12 +86,20 @@ public class GestionCommercial implements GestionCommercialLocal {
         }
     }
 
+    /**
+     *
+     * @param evenement
+     */
     @Override
     public void genererReponsePositive(EvenementFormationValidation evenement) {
         Logger.getLogger(GestionCommercial.class.getName()).log(Level.INFO, "Validation : " + evenement.toString());
         System.out.println("-> TODO : générer réponse");
     }
 
+    /**
+     *
+     * @param evenement
+     */
     @Override
     public void genererReponseNegative(EvenementFormationAnnulation evenement) {
         Logger.getLogger(GestionCommercial.class.getName()).log(Level.INFO, "[Commercial][GestionCommercial] GenererReponseNegative : " + evenement.toString());

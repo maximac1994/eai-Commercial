@@ -32,9 +32,16 @@ public class FileConfirmerExistenceListener implements MessageListener {
     @EJB
     GestionCommercialLocal gcl;
 
+    /**
+     *
+     */
     public FileConfirmerExistenceListener() {
     }
 
+    /**
+     * à chaque reception de confirmation d'existance : traitement de la demande
+     * @param message
+     */
     @Override
     public void onMessage(Message message) {
         Logger.getLogger(FileConfirmerExistenceListener.class.getName()).log(Level.INFO, "[APPLI COMMERCIAL] FileConfirmerExistenceListener - onMessage()");
